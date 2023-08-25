@@ -7,7 +7,7 @@ import pandas as pd
 import requests
 import json
 
-dbpath = "HousingInflation.sqlite"
+
 
 # Create a base class for declarating class definitions to produce Table objects
 Base = declarative_base()
@@ -21,7 +21,13 @@ class HousingInflation(Base):
     Value = Column(Integer)
     percentagechange = Column(Float)
 
+class InterestRates(Base):
+    __tablename__ = "InterestRates" 
+    id = Column(Integer, primary_key = True)
+    year = Column(String)
+    Interest_Rates = Column(Float)
 
+dbpath = "HousingInflation.sqlite"
 def LoadHousingData():
     #Load your SQLITE database
     engine = create_engine(f'sqlite:///{dbpath}')
@@ -40,7 +46,25 @@ def LoadHousingData():
         data = pd.read_sql(query, engine.connect())
 
     return data
+dbpath2 = "InterestRates.sqlite"
+def LoadInterestData():
+    #Load your SQLITE database
+    engine = create_engine(f'sqlite:///{dbpath}')
+    session = Session(engine)
 
+
+    #Pull the data into pandas. We are filtering by the period    
+
+    try:
+    #SQL Alchemy 1.X version 
+        query = session.query(InterestRates).statement
+        data = pd.read_sql(query, session.bind)    
+    except:
+        #SQL Alchemy 2.0 version 
+        query  = text(str(session.query(InterestRates)))
+        data = pd.read_sql(query, engine.connect())
+
+    return data
 
 if __name__ == "__main__":
     import pandas as pd
@@ -54,6 +78,8 @@ if __name__ == "__main__":
     Base.metadata.create_all(engine)
 
     session = Session(engine)
+
+    #ETL processes for housing data
 
     SFHousingData = pd.read_csv('HousingData.csv')
 
@@ -80,9 +106,18 @@ if __name__ == "__main__":
     Final = Final[['Seriesid', 'City','Year','Value','Percentage_Change']]
 
     Final = Final.reset_index()
+
+    InflationData = pd.read_csv('InterestRates.csv')
+    InflationData[['Year','Month','Day']] = InflationData['DATE'].str.split(pat = '-',expand=True)
+    InflationData = InflationData.reset_index()
+    InflationData = InflationData[(InflationData['Month'] == '12')]
+    InflationData = InflationData.rename(columns={'INTDSRUSM193N':'Interest Rates'})
+    FinalFrame = InflationData[['Year','Interest Rates']]
+    FinalFrame = FinalFrame.reset_index(drop=True)
+    FinalFrame =FinalFrame.reset_index()
+
     
     for index,row in Final.iterrows():
-        print()
         id_row = row['index']
         city_row = row['City']
         Year_row = row['Year']
@@ -93,6 +128,13 @@ if __name__ == "__main__":
                                  Year= Year_row,
                                  Value=Value_row,
                                  percentagechange=percentagechange_row))
+        
+    for index,interest_row in FinalFrame.iterrows():
+        session.add(InterestRates(id = interest_row['index'],
+                                  year = interest_row['Year'],
+                                  Interest_Rates = interest_row['Interest Rates']
+                                  ))
+
     session.commit()
 
 
@@ -101,7 +143,9 @@ if __name__ == "__main__":
 #data = pd.read_sql(session.query(Grade).statement, session.bind)
     data = LoadHousingData()
 
-    print(data.head())
+    interestdata = LoadInterestData()
+
+    print(interestdata.head())
 
     session.close()
     
