@@ -43,9 +43,8 @@ Results: San Francisco has way more funding to be able to withstand the cases of
 
 Homeless Density Variations are more prevalent and correlate with population density.
 
-We found that it would be based off of what the situation is for the individual and their circumstance. For someone that is going to be trying to be processed through the system and then into a home or abode, San Francisco would have the better opportunity. If the person in question is only trying to get by with out government assistance, they may fare better in Austin.
-
 Conclusion: Conclusion: Navigating the Vague Path Forward
+We found that it would be based off of what the situation is for the individual and their circumstance. For someone that is going to be trying to be processed through the system and then into a home or abode, San Francisco would have the better opportunity. If the person in question is only trying to get by with out government assistance, they may fare better in Austin.
 
 The homeless issue between Austin and San Francisco is a vague and intricate tapestry, woven from the threads of countless lives and experiences. It resists simplistic solutions and demands a nuanced understanding of the factors that contribute to homelessness. While both cities grapple with this challenge, their journeys are distinct, reflecting the uniqueness of their urban environments and the communities they nurture.
 
