@@ -45,11 +45,10 @@ Homeless Density Variations are more prevalent and correlate with population den
 
 We found that it would be based off of what the situation is for the individual and their circumstance. For someone that is going to be trying to be processed through the system and then into a home or abode, San Francisco would have the better opportunity. If the person in question is only trying to get by with out government assistance, they may fare better in Austin.
 
-What is the Cost comparison over a 5-year span for Tesla Model 3 and Toyota Corolla? (Dataset 5 years) -Model 3 Total Cost of Ownership: 47841, per month: 797.35
--Toyota Corolla Total Cost of Ownership: 32770, per month: 546.17 -The Toyota Corolla is cheaper by $251.18
+Conclusion: Conclusion: Navigating the Vague Path Forward
 
-Conclusion: Based on the analysis, we can conclude that the Median income household can affford an EV without breaking the bank. That an EV would be useful as a transport medium if there is an established charging route but an ICE vehicle would be best if there is no route established for charging. That over a 5 year span, the Toyota Corolla is $251.18 a month cheaper than the Tesla Model 3.
+The homeless issue between Austin and San Francisco is a vague and intricate tapestry, woven from the threads of countless lives and experiences. It resists simplistic solutions and demands a nuanced understanding of the factors that contribute to homelessness. While both cities grapple with this challenge, their journeys are distinct, reflecting the uniqueness of their urban environments and the communities they nurture.
 
-There is a correlation of EVs and charging stations with population density and location.
+As we navigate the shadows of homelessness in Austin and San Francisco, we must acknowledge the complexity of this issue and the vague, uncertain paths that lie ahead. The homeless issue is not a monolith but a collection of stories, struggles, and aspirations. It is only through a deeper understanding of these complexities that we can hope to create a more compassionate and inclusive society where homelessness becomes a vague memory of the past.
 
 Limitations: The analysis was only based on a 5 year span, with limited data, findings may not be as accurate as they could be. The "green premium" that is availed to the EV's was difficult to assign a finite number too so findings could be more accurate if we had that.
