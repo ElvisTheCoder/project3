@@ -80,8 +80,22 @@ if __name__ == "__main__":
     session = Session(engine)
 
     #ETL processes for housing data
+    HousingData = pd.read_csv('HousingDataAustin.csv')
+    HousingData['DATE'] = HousingData['DATE'].astype('datetime64[D]')
+    HousingData = HousingData[(HousingData['DATE']>'1999') & (HousingData['DATE'].dt.month == 10)]
+    HousingData['Year'] = HousingData['DATE'].dt.year
+    Indexed_Home_Price = 100638
 
-    SFHousingData = pd.read_csv('HousingData.csv')
+    HousingData['Value'] = Indexed_Home_Price*HousingData['ATNHPIUS12420Q']
+    HousingData['Percentage_Change'] = HousingData['Value'].pct_change()
+    HousingData = HousingData[(HousingData['DATE']>'2000')]
+
+    HousingData['City'] = 'Austin'
+
+
+    HousingData = HousingData[['City','Year','Value','Percentage_Change']]
+
+    SFHousingData = pd.read_csv('HousingDataSF.csv')
 
     Filtered = SFHousingData[(SFHousingData['Series ID'] == 'CUUSS49BSAH') & (SFHousingData['Period'] == 'S02')]
 
@@ -103,21 +117,32 @@ if __name__ == "__main__":
 
     Final = Final.rename(columns={'Series ID': 'Seriesid'})
 
-    Final = Final[['Seriesid', 'City','Year','Value','Percentage_Change']]
+    Final = Final[['City','Year','Value','Percentage_Change']]
 
-    Final = Final.reset_index()
+    Merged = Final.append(HousingData)
+
+    Merged = Merged.reset_index()
+   
+   #ETL Processes for interest rate data 
 
     InflationData = pd.read_csv('InterestRates.csv')
+
     InflationData[['Year','Month','Day']] = InflationData['DATE'].str.split(pat = '-',expand=True)
+
     InflationData = InflationData.reset_index()
+
     InflationData = InflationData[(InflationData['Month'] == '12')]
+
     InflationData = InflationData.rename(columns={'INTDSRUSM193N':'Interest Rates'})
+
     FinalFrame = InflationData[['Year','Interest Rates']]
+
     FinalFrame = FinalFrame.reset_index(drop=True)
+
     FinalFrame =FinalFrame.reset_index()
 
     
-    for index,row in Final.iterrows():
+    for index,row in Merged.iterrows():
         id_row = row['index']
         city_row = row['City']
         Year_row = row['Year']
