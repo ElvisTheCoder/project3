@@ -1,4 +1,4 @@
-# Project title:
+# The HOMELESS: Austin VS. San Francisco.
 The Homeless: Austin vs. San Francisco
 
 Team Members: Julian Pecino Elijah Montgomery Jason Casperson
